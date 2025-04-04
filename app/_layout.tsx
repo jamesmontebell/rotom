@@ -1,39 +1,41 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { tokenCache } from "@/utils/cache";
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import { useFonts } from "expo-font";
+import { Slot } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+if (!key) {
+	throw new Error("Missing key");
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+	const [fontsLoaded] = useFonts({
+		"Baloo-Regular": require("../assets/fonts/Baloo2-Regular.ttf"),
+		"Baloo-Medium": require("../assets/fonts/Baloo2-Medium.ttf"),
+		"Baloo-SemiBold": require("../assets/fonts/Baloo2-SemiBold.ttf"),
+		"Baloo-Bold": require("../assets/fonts/Baloo2-Bold.ttf"),
+		"Baloo-ExtraBold": require("../assets/fonts/Baloo2-ExtraBold.ttf"),
+	});
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+	if (!fontsLoaded) {
+		return (
+			<View
+				style={{
+					flex: 1,
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<ActivityIndicator size="large" />
+			</View>
+		);
+	}
+	return (
+		<ClerkProvider publishableKey={key} tokenCache={tokenCache}>
+			<ClerkLoaded>
+				<Slot />
+			</ClerkLoaded>
+		</ClerkProvider>
+	);
 }

@@ -2,10 +2,10 @@ import Main from "@/components/main/Main";
 import { Text } from "@/components/main/Text";
 import { StyleSheet } from "react-native";
 
-export default function TabOneScreen() {
+export default function Collection() {
 	return (
 		<Main>
-			<Text>Home</Text>
+			<Text>Collection</Text>
 		</Main>
 	);
 }
