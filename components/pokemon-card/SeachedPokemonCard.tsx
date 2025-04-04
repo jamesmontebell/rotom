@@ -1,5 +1,7 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Text } from "@/components/main/Text";
+import { pokemonCardStyles } from "@/constants/ui/GlobalStyles";
+import { Button } from "../main/Button";
 
 interface SearchedPokemonCardProps {
 	image: string;
@@ -19,30 +21,41 @@ export function SearchedPokemonCard({
 	price,
 }: SearchedPokemonCardProps) {
 	return (
-		<View className="pokemonCardContainer">
-			<Image
-				src={image}
-				auto-size={true}
-				className="pokemonCardImage"
-			/>
-			<Text className="pokemonCardTitle">{title}</Text>
-			<Text className="pokemonCardSubHeading">
-				{cardSet.join(" • ")}
-			</Text>
-			<Text className="pokemonCardSubHeading">{rarity}</Text>
-			<View className="pokemonCardBottomRow">
-				<View className="pokemonCardPriceContainer">
-					<Text className="pokemonCardTitle">{`$${price}`}</Text>
-					<Text className=" pokemonCardSubHeading">
-						Qty: {qty}
+		<View style={pokemonCardStyles.container}>
+			<View style={pokemonCardStyles.imageConatiner}>
+				<Image
+					src={image}
+					style={pokemonCardStyles.image}
+				/>
+			</View>
+			<View style={pokemonCardStyles.textContainer}>
+				<Text style={pokemonCardStyles.title}>
+					{title}
+				</Text>
+				<Text style={pokemonCardStyles.subtitle}>
+					{cardSet}
+				</Text>
+				<Text style={pokemonCardStyles.subtitle}>
+					{rarity}
+				</Text>
+				<Text style={pokemonCardStyles.subtitle}>
+					{qty}
+				</Text>
+				<View
+					style={
+						pokemonCardStyles.priceAndAddContainer
+					}
+				>
+					<Text style={pokemonCardStyles.price}>
+						{`$${price}`}
 					</Text>
-				</View>
-				<TouchableOpacity onPress={() => {}}>
 					<Image
-						className="pokemonCardAddButton"
+						style={
+							pokemonCardStyles.addButton
+						}
 						src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
 					/>
-				</TouchableOpacity>
+				</View>
 			</View>
 		</View>
 	);
