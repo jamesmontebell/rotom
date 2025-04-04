@@ -49,6 +49,7 @@ export const signInScreen = StyleSheet.create({
 
 export const textInputStyles = StyleSheet.create({
 	wrapper: {
+		marginBottom: 8,
 		flexDirection: "row",
 		alignItems: "center",
 		borderRadius: 8,
@@ -67,5 +68,56 @@ export const textInputStyles = StyleSheet.create({
 	clearButtonText: {
 		color: Colors.clrPrimaryA0,
 		fontSize: 18,
+	},
+});
+
+export const searchListStyles = StyleSheet.create({
+	container: {
+		width: "100%",
+		backgroundColor: Colors.clrSurfaceA0,
+	},
+});
+
+export const pokemonCardStyles = StyleSheet.create({
+	container: {
+		width: "48%",
+		marginVertical: 8,
+		backgroundColor: Colors.clrSurfaceA10,
+		borderBottomLeftRadius: 10,
+		borderBottomRightRadius: 10,
+	},
+	imageConatiner: {
+		aspectRatio: 2 / 3,
+		width: "100%",
+	},
+	image: {
+		width: "auto",
+		height: "100%",
+		resizeMode: "stretch",
+	},
+	textContainer: {
+		padding: 8,
+	},
+	title: {
+		color: Colors.clrLightA0,
+		fontFamily: "Baloo-Bold",
+		fontSize: 16,
+	},
+	subtitle: {
+		color: Colors.clrLightA0,
+		fontSize: 12,
+	},
+	priceAndAddContainer: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	addButton: {
+		width: 24,
+		height: 24,
+	},
+	price: {
+		fontFamily: "Baloo-Bold",
+		fontSize: 16,
 	},
 });
