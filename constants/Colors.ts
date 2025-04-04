@@ -1,26 +1,31 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+const colors = {
+	/** Base colors */
+	clrDarkA0: "#000000",
+	clrLightA0: "#ffffff",
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+	/** Theme primary colors */
+	clrPrimaryA0: "#cf3858",
+	clrPrimaryA10: "#d75369",
+	clrPrimaryA20: "#df6b7a",
+	clrPrimaryA30: "#e6818c",
+	clrPrimaryA40: "#ec979e",
+	clrPrimaryA50: "#f2acb1",
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+	/** Theme surface colors */
+	clrSurfaceA0: "#121212",
+	clrSurfaceA10: "#282828",
+	clrSurfaceA20: "#3f3f3f",
+	clrSurfaceA30: "#575757",
+	clrSurfaceA40: "#717171",
+	clrSurfaceA50: "#8b8b8b",
+
+	/** Theme tonal surface colors */
+	clrSurfaceTonalA0: "#241819",
+	clrSurfaceTonalA10: "#392d2e",
+	clrSurfaceTonalA20: "#4f4444",
+	clrSurfaceTonalA30: "#665c5c",
+	clrSurfaceTonalA40: "#7d7575",
+	clrSurfaceTonalA50: "#968f8f",
 };
+
+export default colors;
