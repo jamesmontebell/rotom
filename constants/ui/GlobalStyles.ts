@@ -83,8 +83,12 @@ export const pokemonCardStyles = StyleSheet.create({
 		width: "48%",
 		marginVertical: 8,
 		backgroundColor: Colors.clrSurfaceA10,
+		borderTopLeftRadius: 10,
+		borderTopRightRadius: 10,
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
+		display: "flex", // Make the container a flexbox
+		flexDirection: "column",
 	},
 	imageConatiner: {
 		aspectRatio: 2 / 3,
@@ -94,18 +98,23 @@ export const pokemonCardStyles = StyleSheet.create({
 		width: "auto",
 		height: "100%",
 		resizeMode: "stretch",
+		borderRadius: 5,
 	},
 	textContainer: {
 		padding: 8,
+		flex: 1, // Take remaining space
+		display: "flex", // Use flex layout for textContainer
+		flexDirection: "column", // Stack content vertically
+		justifyContent: "space-between", // Align items at the top and bottom
 	},
 	title: {
 		color: Colors.clrLightA0,
 		fontFamily: "Baloo-Bold",
-		fontSize: 16,
+		fontSize: 12,
 	},
 	subtitle: {
 		color: Colors.clrLightA0,
-		fontSize: 12,
+		fontSize: 9,
 	},
 	priceAndAddContainer: {
 		display: "flex",
@@ -119,5 +128,20 @@ export const pokemonCardStyles = StyleSheet.create({
 	price: {
 		fontFamily: "Baloo-Bold",
 		fontSize: 16,
+	},
+});
+
+export const loadingStyles = StyleSheet.create({
+	container: {
+		height: "85%",
+		width: "100%",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	image: {
+		width: 32,
+		height: 32,
 	},
 });

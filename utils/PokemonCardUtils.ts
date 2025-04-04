@@ -33,6 +33,5 @@ export const fetchPokemonCardByName = async (name: string) => {
 		cardmarket: card.cardmarket,
 	}));
 
-	console.log(mappedData);
 	return mappedData;
 };
