@@ -1,9 +1,13 @@
 import Main from "@/components/main/Main";
+import { Text } from "@/components/main/Text";
+import { SearchedPokemonCard } from "@/components/pokemon-card/SeachedPokemonCard";
 import { SearchBar } from "@/components/search-bar/SearchBar";
 import { useSearchedPokemonStore } from "@/components/search-bar/SearchBarStore";
+import { searchListStyles } from "@/constants/ui/GlobalStyles";
 import { fetchPokemonCardByName } from "@/utils/PokemonCardUtils";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { FlatList, View } from "react-native";
 
 export default function Search() {
 	const { search } = useSearchedPokemonStore();
@@ -24,9 +28,39 @@ export default function Search() {
 		}
 	}, [search, refetch]);
 
+	const pokemonCard = {
+		image: "https://images.pokemontcg.io/xy1/1.png",
+		title: "Pikachu - VMAX",
+		cardSet: ["Sword & Shield", "Vivid Voltage"],
+		rarity: "Ultra Rare",
+		qty: 3,
+		price: 89.99,
+	};
+
 	return (
 		<Main>
 			<SearchBar />
+			<FlatList
+				style={searchListStyles.container}
+				numColumns={2}
+				data={[
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+					pokemonCard,
+				]}
+				columnWrapperStyle={{
+					justifyContent: "space-between",
+				}}
+				renderItem={({ item }) => (
+					<SearchedPokemonCard {...item} />
+				)}
+				keyExtractor={(item, index) => index.toString()}
+			/>
 			{/* {isLoading ? (
 				<Loading />
 			) : !isSearching ? (
