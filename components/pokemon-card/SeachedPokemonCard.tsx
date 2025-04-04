@@ -1,7 +1,6 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { Text } from "@/components/main/Text";
 import { pokemonCardStyles } from "@/constants/ui/GlobalStyles";
-import { Button } from "../main/Button";
 
 interface SearchedPokemonCardProps {
 	image: string;
@@ -49,12 +48,14 @@ export function SearchedPokemonCard({
 					<Text style={pokemonCardStyles.price}>
 						{`$${price}`}
 					</Text>
-					<Image
-						style={
-							pokemonCardStyles.addButton
-						}
-						src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
-					/>
+					<TouchableOpacity>
+						<Image
+							style={
+								pokemonCardStyles.addButton
+							}
+							src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
+						/>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>
