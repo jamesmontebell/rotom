@@ -1,5 +1,7 @@
-import { Text as RText, TextProps } from "react-native";
 import React from "react";
+
+import { Text as RText, TextProps } from "react-native";
+
 import Colors from "../../constants/Colors";
 
 interface CustomTextProps extends TextProps {

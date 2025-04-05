@@ -1,8 +1,10 @@
 import { TextInput, TouchableOpacity, View } from "react-native";
+
 import { Text } from "@/components/main/Text";
-import { useSearchedPokemonStore } from "./SearchBarStore";
 import { textInputStyles } from "@/constants/ui/GlobalStyles";
+
 import Colors from "../../constants/Colors";
+import { useSearchedPokemonStore } from "./SearchBarStore";
 
 export function SearchBar() {
 	const { search, setSearch } = useSearchedPokemonStore();
