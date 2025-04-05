@@ -1,8 +1,15 @@
-import { tokenCache } from "@/utils/cache";
+import { ActivityIndicator, View } from "react-native";
+
+import { Slot } from "expo-router";
+
+import {
+	initialWindowMetrics,
+	SafeAreaProvider,
+} from "react-native-safe-area-context";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+
+import { tokenCache } from "@/utils/cache";
 
 const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 if (!key) {
@@ -32,10 +39,19 @@ export default function RootLayout() {
 		);
 	}
 	return (
-		<ClerkProvider publishableKey={key} tokenCache={tokenCache}>
-			<ClerkLoaded>
-				<Slot />
-			</ClerkLoaded>
-		</ClerkProvider>
+		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
+			<ClerkProvider
+				publishableKey={key}
+				tokenCache={tokenCache}
+			>
+				<ClerkLoaded>
+					<Slot
+						screenOptions={{
+							headerShown: false,
+						}}
+					/>
+				</ClerkLoaded>
+			</ClerkProvider>
+		</SafeAreaProvider>
 	);
 }

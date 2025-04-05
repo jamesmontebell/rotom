@@ -1,6 +1,7 @@
+import { StyleSheet } from "react-native";
+
 import Main from "@/components/main/Main";
 import { Text } from "@/components/main/Text";
-import { StyleSheet } from "react-native";
 
 export default function Collection() {
 	return (
