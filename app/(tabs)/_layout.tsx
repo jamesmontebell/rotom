@@ -1,16 +1,19 @@
 import React from "react";
-import { Image } from "react-native";
-import { Redirect, Stack, Tabs } from "expo-router";
 
-import Colors from "@/constants/Colors";
+import { Image } from "react-native";
+
+import { Redirect, Tabs } from "expo-router";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useUser } from "@clerk/clerk-expo";
+
+import Colors from "@/constants/Colors";
 
 export default function TabLayout() {
 	const { isSignedIn } = useUser();
 
 	if (!isSignedIn) {
-		return <Redirect href="/(auth)" />;
+		return <Redirect href="/" />;
 	}
 	const queryClient = new QueryClient();
 
@@ -18,16 +21,20 @@ export default function TabLayout() {
 		<QueryClientProvider client={queryClient}>
 			<Tabs
 				screenOptions={{
+					headerStyle: {
+						backgroundColor:
+							Colors.clrSurfaceA0,
+						height: 72,
+					},
+					headerTitle: "",
 					tabBarActiveTintColor:
 						Colors.clrPrimaryA0,
 					tabBarInactiveTintColor:
 						Colors.clrSurfaceA50,
-					// Disable the static render of the header on web
-					// to prevent a hydration error in React Navigation v6.
 					tabBarStyle: {
 						borderTopWidth: 0,
 						backgroundColor:
-							Colors.clrSurfaceA0, // Tab bar background color
+							Colors.clrSurfaceA0,
 						height: 72,
 						paddingTop: 8,
 					},
@@ -36,7 +43,6 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name="index"
 					options={{
-						headerShown: false,
 						tabBarShowLabel: false,
 						tabBarIcon: ({
 							color,
@@ -50,7 +56,7 @@ export default function TabLayout() {
 									width: size,
 									height: size,
 									tintColor: color,
-								}} // Apply the size and color
+								}}
 							/>
 						),
 					}}
@@ -58,7 +64,6 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name="search"
 					options={{
-						headerShown: false,
 						tabBarShowLabel: false,
 						tabBarIcon: ({
 							color,
@@ -72,7 +77,7 @@ export default function TabLayout() {
 									width: size,
 									height: size,
 									tintColor: color,
-								}} // Apply the size and color
+								}}
 							/>
 						),
 					}}
@@ -80,7 +85,6 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name="collection"
 					options={{
-						headerShown: false,
 						tabBarShowLabel: false,
 						tabBarIcon: ({
 							color,
@@ -94,7 +98,7 @@ export default function TabLayout() {
 									width: size,
 									height: size,
 									tintColor: color,
-								}} // Apply the size and color
+								}}
 							/>
 						),
 					}}
@@ -102,7 +106,6 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name="profile"
 					options={{
-						headerShown: false,
 						tabBarShowLabel: false,
 						tabBarIcon: ({
 							color,
@@ -116,7 +119,7 @@ export default function TabLayout() {
 									width: size,
 									height: size,
 									tintColor: color,
-								}} // Apply the size and color
+								}}
 							/>
 						),
 					}}

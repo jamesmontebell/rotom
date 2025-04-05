@@ -1,17 +1,28 @@
-import Main from "@/components/main/Main";
 import React, { useState } from "react";
+
+import { View, Image } from "react-native";
+
+import { Redirect } from "expo-router";
+
+import * as AuthSession from "expo-auth-session";
+import * as WebBrowser from "expo-web-browser";
+import { ClerkAPIError } from "@clerk/types";
+import { isClerkAPIResponseError, useSSO, useUser } from "@clerk/clerk-expo";
+
+import Main from "@/components/main/Main";
+import { Button } from "@/components/main/Button";
 import { Text } from "@/components/main/Text";
 import { signInScreen } from "@/constants/ui/GlobalStyles";
-import { View, Image } from "react-native";
-import { Button } from "@/components/main/Button";
-import * as WebBrowser from "expo-web-browser";
-import * as AuthSession from "expo-auth-session";
-import { isClerkAPIResponseError, useSSO } from "@clerk/clerk-expo";
-import { ClerkAPIError } from "@clerk/types";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const Index = () => {
+	const { isSignedIn } = useUser();
+
+	if (isSignedIn) {
+		return <Redirect href="/(tabs)" />;
+	}
+
 	const { startSSOFlow } = useSSO();
 	const [errors, setErrors] = useState<ClerkAPIError[]>([]);
 

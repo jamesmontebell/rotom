@@ -1,13 +1,5 @@
-import Main from "@/components/main/Main";
-import { Text } from "@/components/main/Text";
-import { SearchedPokemonCard } from "@/components/pokemon-card/SeachedPokemonCard";
-import { Loading } from "@/components/search-bar/Loading";
-import { SearchBar } from "@/components/search-bar/SearchBar";
-import { useSearchedPokemonStore } from "@/components/search-bar/SearchBarStore";
-import { searchListStyles } from "@/constants/ui/GlobalStyles";
-import { fetchPokemonCardByName } from "@/utils/PokemonCardUtils";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+
 import {
 	FlatList,
 	Keyboard,
@@ -15,6 +7,17 @@ import {
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
+
+import { useQuery } from "@tanstack/react-query";
+
+import Main from "@/components/main/Main";
+import { Loading } from "@/components/search-bar/Loading";
+import { SearchBar } from "@/components/search-bar/SearchBar";
+import { SearchedPokemonCard } from "@/components/pokemon-card/SeachedPokemonCard";
+import { Text } from "@/components/main/Text";
+import { fetchPokemonCardByName } from "@/utils/PokemonCardUtils";
+import { searchListStyles } from "@/constants/ui/GlobalStyles";
+import { useSearchedPokemonStore } from "@/components/search-bar/SearchBarStore";
 
 export default function Search() {
 	const { search } = useSearchedPokemonStore();
