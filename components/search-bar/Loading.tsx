@@ -1,6 +1,7 @@
 import React from "react";
+
 import { View } from "react-native";
-import { loadingStyles } from "@/constants/ui/GlobalStyles";
+
 import Animated, {
 	useSharedValue,
 	useAnimatedStyle,
@@ -10,6 +11,8 @@ import Animated, {
 	withRepeat,
 	Easing,
 } from "react-native-reanimated";
+
+import { loadingStyles } from "@/constants/ui/GlobalStyles";
 
 export function Loading() {
 	const delays = [0, 150, 300];

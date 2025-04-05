@@ -1,5 +1,6 @@
-import Colors from "@/constants/Colors";
 import { Pressable, PressableProps, Text, ViewStyle } from "react-native";
+
+import Colors from "@/constants/Colors";
 
 export function Button({ children, style, ...props }: PressableProps) {
 	return (
