@@ -1,23 +1,28 @@
-import { useRouter } from "expo-router";
-
-import { useAuth } from "@clerk/clerk-expo";
-
+import { Redirect } from "expo-router";
+import { useUser } from "@clerk/clerk-expo";
 import Main from "@/components/main/Main";
-import { Button } from "@/components/main/Button";
-import { Text } from "@/components/main/Text";
+import ProfileCard from "@/components/profile/ProfileCard";
+import ProfileTotalsCard from "@/components/profile/ProfileTotalsCard";
+import { ScrollView } from "react-native";
+import { profilePageStyles } from "@/constants/ui/GlobalStyles";
 
 export default function Profile() {
-	const { signOut } = useAuth();
-	const router = useRouter();
+	const { isSignedIn } = useUser();
 
-	const handleSignOut = async () => {
-		await signOut();
-		router.replace("/");
-	};
+	if (!isSignedIn) {
+		return <Redirect href="/" />;
+	}
+
 	return (
 		<Main>
-			<Button onPress={handleSignOut}>Sign Out</Button>
-			<Text>Bruh</Text>
+			<ScrollView
+				contentContainerStyle={
+					profilePageStyles.scrollContainer
+				}
+			>
+				<ProfileCard />
+				<ProfileTotalsCard />
+			</ScrollView>
 		</Main>
 	);
 }

@@ -145,3 +145,11 @@ export const loadingStyles = StyleSheet.create({
 		height: 32,
 	},
 });
+
+export const profilePageStyles = StyleSheet.create({
+	scrollContainer: {
+		display: "flex",
+		flexDirection: "column",
+		gap: 16,
+	},
+});
