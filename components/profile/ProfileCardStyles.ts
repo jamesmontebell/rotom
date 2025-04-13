@@ -27,11 +27,13 @@ export const profileCardStyles = StyleSheet.create({
 	profileFollow: {
 		// borderColor: "white",
 		// borderWidth: 1,
-		// backgroundColor: Colors.clrSurfaceA20,
-		// borderRadius: 16,
-		// padding: 16,
+		backgroundColor: Colors.clrSurfaceA20,
+		borderRadius: 16,
+		padding: 16,
 		display: "flex",
 		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-between",
 		gap: 20,
 	},
 	followTitle: {
@@ -43,12 +45,22 @@ export const profileCardStyles = StyleSheet.create({
 		fontSize: 16,
 		color: Colors.clrPrimaryA10,
 	},
+	shareButtonContainer: {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	shareButton: {
+		height: 16,
+		width: 16,
+	},
 	profileName: {
 		fontSize: 20,
 		fontFamily: "Baloo-ExtraBold",
 	},
 	profileBio: {
 		fontFamily: "Baloo-Regular",
+		marginBottom: 16,
 	},
 	profileCardContainer: {
 		width: "100%",

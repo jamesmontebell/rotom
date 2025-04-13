@@ -1,8 +1,9 @@
-import { View, Image, ScrollView } from "react-native";
+import { View, Image } from "react-native";
 import { Text } from "@/components/main/Text";
 import { profileCardStyles } from "./ProfileCardStyles";
 import { useRouter } from "expo-router";
 import { useAuth } from "@clerk/clerk-expo";
+import { Button } from "../main/Button";
 
 const ProfileCard = () => {
 	const { signOut } = useAuth();
@@ -62,6 +63,19 @@ const ProfileCard = () => {
 						Following
 					</Text>
 				</View>
+
+				<Button
+					style={
+						profileCardStyles.shareButtonContainer
+					}
+				>
+					<Image
+						style={
+							profileCardStyles.shareButton
+						}
+						src="https://img.icons8.com/?size=100&id=c3Z8IwwzvmWR&format=png&color=D75369"
+					/>
+				</Button>
 			</View>
 			<View style={profileCardStyles.subContainer}>
 				<Text style={profileCardStyles.profileName}>
@@ -75,6 +89,7 @@ const ProfileCard = () => {
 					autem saepe neque nihil, quod totam sint
 					maiores dicta voluptatibus!
 				</Text>
+				<Button>Edit Profile</Button>
 			</View>
 			{/* <Button onPress={handleSignOut}>Sign Out</Button> */}
 		</View>
