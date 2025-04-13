@@ -20,7 +20,7 @@ export const profileTotalsCardStyles = StyleSheet.create({
 	},
 	valueTitle: {
 		fontFamily: "Baloo-Bold",
-		fontSize: 18,
+		fontSize: 16,
 	},
 	valueNumber: {
 		fontFamily: "Baloo-Bold",
