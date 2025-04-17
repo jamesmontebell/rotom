@@ -1,16 +1,16 @@
 import { Pressable, PressableProps, Text, ViewStyle } from "react-native";
-
 import Colors from "@/constants/Colors";
 
 export function Button({ children, style, ...props }: PressableProps) {
 	return (
 		<Pressable
-			style={[
+			style={({ pressed }) => [
 				{
 					backgroundColor: Colors.clrLightA0,
 					padding: 8,
 					borderRadius: 14,
-					width: "100%",
+					opacity: pressed ? 0.6 : 1, // 👈 Opacity on press
+					transition: "opacity 150ms",
 				},
 				style as ViewStyle,
 			]}

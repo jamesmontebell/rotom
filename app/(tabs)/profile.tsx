@@ -4,8 +4,9 @@ import Main from "@/components/main/Main";
 import ProfileCard from "@/components/profile/ProfileCard";
 import ProfileTotalsCard from "@/components/profile/ProfileTotalsCard";
 import ShowcaseCard from "@/components/profile/ShowcaseCard";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { profilePageStyles } from "@/constants/ui/GlobalStyles";
+import Divider from "@/components/main/Divider";
 
 export default function Profile() {
 	const { isSignedIn } = useUser();
@@ -22,7 +23,9 @@ export default function Profile() {
 				}
 			>
 				<ProfileCard />
+				<Divider />
 				<ProfileTotalsCard />
+				<Divider />
 				<ShowcaseCard />
 			</ScrollView>
 		</Main>

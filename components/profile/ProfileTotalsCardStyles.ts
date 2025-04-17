@@ -17,9 +17,6 @@ export const profileTotalsCardStyles = StyleSheet.create({
 		flexDirection: "column",
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: Colors.clrSurfaceA20,
-		borderRadius: 16,
-		padding: 16,
 	},
 	valueTitle: {
 		fontFamily: "Baloo-Bold",
