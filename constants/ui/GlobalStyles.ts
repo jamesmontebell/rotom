@@ -150,6 +150,6 @@ export const profilePageStyles = StyleSheet.create({
 	scrollContainer: {
 		display: "flex",
 		flexDirection: "column",
-		gap: 16,
+		gap: 10,
 	},
 });

@@ -15,82 +15,104 @@ const ProfileCard = () => {
 	};
 	return (
 		<View style={profileCardStyles.profileContainer}>
-			<View style={profileCardStyles.profileFollow}>
-				<Image style={profileCardStyles.profileImage} />
+			<View style={profileCardStyles.profileHeaderContainer}>
 				<View
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-				>
-					<Text
-						style={
-							profileCardStyles.followNumber
-						}
-					>
-						69
-					</Text>
-					<Text
-						style={
-							profileCardStyles.followTitle
-						}
-					>
-						Followers
-					</Text>
-				</View>
-				<View
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-					}}
-				>
-					<Text
-						style={
-							profileCardStyles.followNumber
-						}
-					>
-						169
-					</Text>
-					<Text
-						style={
-							profileCardStyles.followTitle
-						}
-					>
-						Following
-					</Text>
-				</View>
-
-				<Button
 					style={
-						profileCardStyles.shareButtonContainer
+						profileCardStyles.profileImageAndNameContainer
 					}
 				>
 					<Image
 						style={
-							profileCardStyles.shareButton
+							profileCardStyles.profileImage
 						}
-						src="https://img.icons8.com/?size=100&id=c3Z8IwwzvmWR&format=png&color=D75369"
 					/>
-				</Button>
+					<Text
+						style={
+							profileCardStyles.profileName
+						}
+					>
+						Profile Name
+					</Text>
+				</View>
+				<View style={profileCardStyles.followContainer}>
+					<View
+						style={
+							profileCardStyles.followNumberContainer
+						}
+					>
+						<View
+							style={
+								profileCardStyles.followTextContainer
+							}
+						>
+							<Text
+								style={
+									profileCardStyles.followNumber
+								}
+							>
+								69
+							</Text>
+							<Text
+								style={
+									profileCardStyles.followTitle
+								}
+							>
+								Followers
+							</Text>
+						</View>
+						<View
+							style={
+								profileCardStyles.followTextContainer
+							}
+						>
+							<Text
+								style={
+									profileCardStyles.followNumber
+								}
+							>
+								169
+							</Text>
+							<Text
+								style={
+									profileCardStyles.followTitle
+								}
+							>
+								Following
+							</Text>
+						</View>
+					</View>
+					<View
+						style={
+							profileCardStyles.followButtonsContainer
+						}
+					>
+						<Button
+							style={
+								profileCardStyles.followButton
+							}
+						>
+							Edit Profile
+						</Button>
+						<Button
+							style={
+								profileCardStyles.shareButton
+							}
+						>
+							<Image
+								style={
+									profileCardStyles.shareButtonImage
+								}
+								src="https://img.icons8.com/?size=100&id=c3Z8IwwzvmWR&format=png&color=ffffff"
+							/>
+						</Button>
+					</View>
+				</View>
 			</View>
-			<View style={profileCardStyles.subContainer}>
-				<Text style={profileCardStyles.profileName}>
-					Profile Name
-				</Text>
-				<Text style={profileCardStyles.profileBio}>
-					Lorem ipsum, dolor sit amet consectetur
-					adipisicing elit. Ea temporibus iste
-					recusandae quaerat est dolorem
-					voluptatum. Assumenda nostrum fugit ab
-					autem saepe neque nihil, quod totam sint
-					maiores dicta voluptatibus!
-				</Text>
-				<Button>Edit Profile</Button>
-			</View>
+			<Text style={profileCardStyles.profileBio}>
+				Lorem ipsum dolor, sit amet consectetur
+				adipisicing elit. Nihil nam, ipsum neque
+				inventore obcaecati
+			</Text>
 			{/* <Button onPress={handleSignOut}>Sign Out</Button> */}
 		</View>
 	);
