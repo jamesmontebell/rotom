@@ -9,9 +9,11 @@ interface SearchedPokemonCardProps {
 	rarity: string;
 	qty: number;
 	price: number;
+	isFromSearch: boolean;
 }
 
 export function SearchedPokemonCard({
+	isFromSearch,
 	image,
 	title,
 	cardSet,
@@ -48,14 +50,16 @@ export function SearchedPokemonCard({
 					<Text style={pokemonCardStyles.price}>
 						{`$${price}`}
 					</Text>
-					<TouchableOpacity>
-						<Image
-							style={
-								pokemonCardStyles.addButton
-							}
-							src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
-						/>
-					</TouchableOpacity>
+					{isFromSearch ? (
+						<TouchableOpacity>
+							<Image
+								style={
+									pokemonCardStyles.addButton
+								}
+								src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
+							/>
+						</TouchableOpacity>
+					) : null}
 				</View>
 			</View>
 		</View>

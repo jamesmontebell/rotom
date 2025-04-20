@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
-import {
-	FlatList,
-	Keyboard,
-	ScrollView,
-	TouchableWithoutFeedback,
-	View,
-} from "react-native";
+import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -61,6 +55,9 @@ export default function Search() {
 						}}
 						renderItem={({ item }) => (
 							<SearchedPokemonCard
+								isFromSearch={
+									true
+								}
 								image={
 									item
 										.images
