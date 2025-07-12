@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
-
 import { useQuery } from "@tanstack/react-query";
-
 import Main from "@/components/main/Main";
 import { Loading } from "@/components/search-bar/Loading";
 import { SearchBar } from "@/components/search-bar/SearchBar";

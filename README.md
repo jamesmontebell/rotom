@@ -1,6 +1,6 @@
 # Project Checklist
 
-- [ ] Remove profile pages/sign in
+- [x] Remove profile pages/sign in
 - [ ] Create a list of third-party APIs needed
 - [ ] Create collection functionality
 - [ ] Create collection UI
@@ -13,3 +13,4 @@
 - [ ] Scan card API functionality
 - [ ] Implement rate limiting
 - [ ] Prep for paid tier
+- [ ] Onboarding page

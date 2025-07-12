@@ -1,20 +1,10 @@
 import { ActivityIndicator, View } from "react-native";
-
 import { Slot } from "expo-router";
-
 import {
 	initialWindowMetrics,
 	SafeAreaProvider,
 } from "react-native-safe-area-context";
-import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
-
-import { tokenCache } from "@/utils/cache";
-
-const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
-if (!key) {
-	throw new Error("Missing key");
-}
 
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
@@ -37,21 +27,14 @@ export default function RootLayout() {
 				<ActivityIndicator size="large" />
 			</View>
 		);
-	}
+}
 	return (
 		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-			<ClerkProvider
-				publishableKey={key}
-				tokenCache={tokenCache}
-			>
-				<ClerkLoaded>
-					<Slot
-						screenOptions={{
-							headerShown: false,
-						}}
-					/>
-				</ClerkLoaded>
-			</ClerkProvider>
+			<Slot
+				screenOptions={{
+					headerShown: false,
+				}}
+			/>
 		</SafeAreaProvider>
 	);
 }
