@@ -59,7 +59,7 @@ export const textInputStyles = StyleSheet.create({
 		flex: 1,
 		paddingHorizontal: 16,
 		paddingVertical: 10,
-		color: Colors.clrPrimaryA0,
+		color: Colors.clrDarkA0,
 		fontSize: 16,
 	},
 	clearButton: {
