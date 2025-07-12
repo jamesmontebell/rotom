@@ -14,3 +14,4 @@
 - [ ] Implement rate limiting
 - [ ] Prep for paid tier
 - [ ] Onboarding page
+- [ ] Inisghts using graphs on home page & individual cards
