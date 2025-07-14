@@ -18,6 +18,7 @@ const colors = {
 	clrSurfaceA30: "#575757",
 	clrSurfaceA40: "#717171",
 	clrSurfaceA50: "#8b8b8b",
+	clrRipple: "rgba(255,255,255,0.1)",
 
 	/** Theme tonal surface colors */
 	clrSurfaceTonalA0: "#241819",
