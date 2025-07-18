@@ -1,7 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
-import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import {
+	Animated,
+	FlatList,
+	Keyboard,
+	TouchableWithoutFeedback,
+} from "react-native";
+
 import debounce from "lodash/debounce";
+import { useQuery } from "@tanstack/react-query";
 
 import Main from "@/components/main/Main";
 import PokemonSkeletonList from "@/components/search/PokemonSkeletonList";
@@ -22,6 +29,19 @@ export default function Search() {
 		queryFn: () => fetchers.fetchByName(search),
 		enabled: false,
 	});
+
+	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
+
+	useEffect(() => {
+		if (!isSearching || isFetching) {
+			fadeInTextAnim.setValue(0);
+			Animated.timing(fadeInTextAnim, {
+				toValue: 1,
+				duration: 400,
+				useNativeDriver: true,
+			}).start();
+		}
+	}, [isSearching, isFetching]);
 
 	// Memoize the debounced function so it doesn't get recreated on every render
 	const debouncedSearch = useMemo(
@@ -49,9 +69,13 @@ export default function Search() {
 		<Main>
 			<SearchBar />
 			{isFetching ? (
-				<PokemonSkeletonList />
+				<Animated.View style={{ opacity: fadeInTextAnim }}>
+					<PokemonSkeletonList />
+				</Animated.View>
 			) : !isSearching ? (
-				<Text>search screen content</Text>
+				<Animated.View style={{ opacity: fadeInTextAnim }}>
+					<Text>search screen content</Text>
+				</Animated.View>
 			) : error ? (
 				<PokemonSkeletonList />
 			) : (

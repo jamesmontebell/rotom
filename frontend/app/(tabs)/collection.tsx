@@ -1,29 +1,37 @@
-import { StyleSheet } from "react-native";
+import { FlatList } from "react-native";
 
 import Main from "@/components/main/Main";
+import PokemonCollectionCard from "@/components/collection/PokemonCollectionCard";
 import { Text } from "@/components/main/Text";
+import { searchListStyles } from "@/constants/ui/GlobalStyles";
 
 export default function Collection() {
 	return (
 		<Main>
-			<Text>Collection</Text>
+			<FlatList
+				style={searchListStyles.container}
+				numColumns={2}
+				data={Array.from({ length: 6 })}
+				columnWrapperStyle={{
+					justifyContent: "space-between",
+				}}
+				renderItem={({ item, index }) =>
+					index === 0 ? (
+						<PokemonCollectionCard
+							key={index}
+							title="New Collection"
+							icon={<Text>+</Text>}
+						/>
+					) : (
+						<PokemonCollectionCard
+							key={index}
+							title="Collections"
+							icon={<Text>+</Text>}
+						/>
+					)
+				}
+				keyExtractor={(_, index) => index.toString()}
+			/>
 		</Main>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
-});
