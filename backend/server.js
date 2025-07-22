@@ -69,6 +69,7 @@ app.get("/api/cards/search", async (req, res) => {
 		}
 
 		res.json(cards);
+		console.log(cards[0].id);
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Failed to fetch cards" });

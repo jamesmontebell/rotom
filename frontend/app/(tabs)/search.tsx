@@ -28,6 +28,8 @@ export default function Search() {
 		queryKey: ["pokemonCard", search],
 		queryFn: () => fetchers.fetchByName(search),
 		enabled: false,
+		retry: 3,
+		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000),
 	});
 
 	const fadeInTextAnim = useRef(new Animated.Value(0)).current;

@@ -4,6 +4,7 @@ import Main from "@/components/main/Main";
 import PokemonCollectionCard from "@/components/collection/PokemonCollectionCard";
 import { Text } from "@/components/main/Text";
 import { searchListStyles } from "@/constants/ui/GlobalStyles";
+import { getCollections, insertCollection } from "@/utils/db";
 
 export default function Collection() {
 	return (
@@ -21,6 +22,8 @@ export default function Collection() {
 							key={index}
 							title="New Collection"
 							icon={<Text>+</Text>}
+							onPress={() => insertCollection("test", "test")}
+							onLongPress={() => getCollections()}
 						/>
 					) : (
 						<PokemonCollectionCard
