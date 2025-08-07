@@ -24,7 +24,7 @@ const PokemonCollectionCard = ({
 				{
 					justifyContent: "center",
 					alignItems: "center",
-					aspectRatio: 2 / 3,
+					aspectRatio: 2.5 / 3,
 					overflow: "hidden",
 					backgroundColor: Colors.clrSurfaceA10,
 					borderRadius: 8,

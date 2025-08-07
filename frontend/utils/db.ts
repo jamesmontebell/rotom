@@ -1,3 +1,4 @@
+import { PokemonCollection } from "@/models/PokemonCollection";
 import * as SQLite from "expo-sqlite";
 
 let db: SQLite.SQLiteDatabase | null = null;
@@ -11,18 +12,36 @@ export const getDb = async (): Promise<SQLite.SQLiteDatabase> => {
 
 export const initDb = async () => {
 	const db = await getDb();
-	await db.execAsync(`CREATE TABLE IF NOT EXISTS collections (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        emoji TEXT
-      );`);
 
+	// collections table
+	await db.execAsync(`CREATE TABLE IF NOT EXISTS collections (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		name TEXT NOT NULL UNIQUE,
+		emoji TEXT
+	);`);
+
+	// singleton watchlist table
+	await db.execAsync(`CREATE TABLE IF NOT EXISTS watchlist (
+		id INTEGER PRIMARY KEY CHECK (id = 1),
+		name TEXT NOT NULL UNIQUE,
+		emoji TEXT 
+	);`);
+
+	// cards table
 	await db.execAsync(`CREATE TABLE IF NOT EXISTS cards (
-        id INTEGER PRIMARY KEY,
-        collection_id INTEGER,
-        image TEXT,
-        FOREIGN KEY (collection_id) REFERENCES collections(id) ON DELETE CASCADE
-      );`);
+		id INTEGER PRIMARY KEY,
+		collection_id INTEGER,
+		image TEXT,
+		is_watchlisted INTEGER DEFAULT 0,
+		FOREIGN KEY (collection_id) REFERENCES collections(id) ON DELETE CASCADE
+	);`);
+
+	// ensure singleton watchlist row exists
+	await db.runAsync(
+		`INSERT OR IGNORE INTO watchlist (id, name, emoji) VALUES (1, ?, ?);`,
+		"Watchlist",
+		"👀"
+	);
 };
 
 // Insert a new collection
@@ -46,12 +65,24 @@ export const insertCollection = async (
 	}
 };
 
-export const getCollections = async () => {
+export const getWatchlist = async () => {
+	const db = await getDb();
+	try {
+		const result = await db.getAllAsync("SELECT * FROM watchlist;");
+		console.log("watchlist:", result);
+		return result as PokemonCollection[];
+	} catch (error) {
+		console.error("SQLite Select Error:", error);
+		return [];
+	}
+};
+
+export const getCollections = async (): Promise<PokemonCollection[]> => {
 	const db = await getDb();
 	try {
 		const result = await db.getAllAsync("SELECT * FROM collections;");
 		console.log("Collections:", result);
-		return result;
+		return result as PokemonCollection[];
 	} catch (error) {
 		console.error("SQLite Select Error:", error);
 		return [];
