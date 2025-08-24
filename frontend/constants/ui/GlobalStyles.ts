@@ -74,6 +74,7 @@ export const textInputStyles = StyleSheet.create({
 export const searchListStyles = StyleSheet.create({
 	container: {
 		width: "100%",
+		height: "100%",
 		backgroundColor: Colors.clrSurfaceA0,
 	},
 });
