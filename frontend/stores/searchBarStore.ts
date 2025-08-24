@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-type SearchedPokemonStore = {
+type searchBarState = {
 	search: string;
 	setSearch: (newSearch: string) => void;
 };
 
-export const useSearchedPokemonStore = create<SearchedPokemonStore>((set) => ({
+export const useSearchBarStore = create<searchBarState>((set) => ({
 	search: "",
 	setSearch: (newSearch) => set({ search: newSearch }),
 }));

@@ -1,5 +1,6 @@
-import { PokemonCollection } from "@/models/PokemonCollection";
 import * as SQLite from "expo-sqlite";
+
+import { PokemonCardCollection } from "@/models/pokemonCardCollection";
 
 let db: SQLite.SQLiteDatabase | null = null;
 
@@ -70,19 +71,19 @@ export const getWatchlist = async () => {
 	try {
 		const result = await db.getAllAsync("SELECT * FROM watchlist;");
 		console.log("watchlist:", result);
-		return result as PokemonCollection[];
+		return result as PokemonCardCollection[];
 	} catch (error) {
 		console.error("SQLite Select Error:", error);
 		return [];
 	}
 };
 
-export const getCollections = async (): Promise<PokemonCollection[]> => {
+export const getCollections = async (): Promise<PokemonCardCollection[]> => {
 	const db = await getDb();
 	try {
 		const result = await db.getAllAsync("SELECT * FROM collections;");
 		console.log("Collections:", result);
-		return result as PokemonCollection[];
+		return result as PokemonCardCollection[];
 	} catch (error) {
 		console.error("SQLite Select Error:", error);
 		return [];

@@ -3,7 +3,7 @@ import { Image } from "react-native";
 import { Tabs } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Colors from "@/constants/Colors";
-import { initDb } from "@/utils/db";
+import { initDb } from "@/services/db";
 
 export default function TabLayout() {
 	const queryClient = new QueryClient();

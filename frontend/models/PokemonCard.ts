@@ -84,7 +84,7 @@ interface CardMarket {
 	prices: CardMarketPrices;
 }
 
-export interface PokemonCardObject {
+export interface PokemonCard {
 	id: string;
 	name: string;
 	supertype: string;

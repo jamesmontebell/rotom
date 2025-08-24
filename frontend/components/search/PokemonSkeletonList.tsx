@@ -1,6 +1,9 @@
-import { searchListStyles } from "@/constants/ui/GlobalStyles";
 import React from "react";
+
 import { FlatList } from "react-native";
+
+import { searchListStyles } from "@/constants/ui/GlobalStyles";
+
 import { SkeletonSearchedPokemonCard } from "./PokemonSkeletonLoader";
 
 const PokemonSkeletonList = () => {

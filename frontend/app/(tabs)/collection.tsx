@@ -1,20 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-
+// src/screens/Collection.tsx
+import { useEffect, useRef } from "react";
 import { Animated, FlatList, View } from "react-native";
-
-import { useQuery } from "@tanstack/react-query";
 
 import Main from "@/components/main/Main";
 import PokemonCollectionCard from "@/components/collection/PokemonCollectionCard";
-import { PokemonCollection } from "@/models/PokemonCollection";
 import { Text } from "@/components/main/Text";
-import { getCollections, insertCollection } from "@/utils/db";
 import { searchListStyles } from "@/constants/ui/GlobalStyles";
+import { collectionViewModel } from "@/viewmodels/collectionViewmodel";
 
 export default function Collection() {
-	const [isNewCollection, setIsNewCollection] = useState(false);
-	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
+	const {
+		flatListData,
+		isFetching,
+		error,
+		refreshCollections,
+		handleAddNewCollection,
+	} = collectionViewModel();
 
+	// animation stays in the View
+	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		fadeInTextAnim.setValue(0);
 		Animated.timing(fadeInTextAnim, {
@@ -23,40 +27,6 @@ export default function Collection() {
 			useNativeDriver: true,
 		}).start();
 	}, []);
-
-	const {
-		data: collections = [],
-		isLoading,
-		error,
-		refetch,
-	} = useQuery({
-		queryKey: ["collections"],
-		queryFn: getCollections,
-		gcTime: Infinity,
-		staleTime: Infinity,
-	});
-
-	useEffect(() => {
-		if (isNewCollection) {
-			refetch();
-			setIsNewCollection(false);
-		}
-	}, [isNewCollection]);
-
-	const staticCollections: PokemonCollection[] = [
-		{
-			id: -1,
-			name: "Watchlist",
-			emoji: "👀",
-		},
-		{
-			id: -2,
-			name: "New Collection",
-			emoji: "➕",
-		},
-	];
-
-	const flatListData = [...staticCollections, ...collections];
 
 	return (
 		<Main>
@@ -84,6 +54,8 @@ export default function Collection() {
 						keyExtractor={(item, index) =>
 							item.id ? item.id.toString() : `dynamic-${index}`
 						}
+						refreshing={isFetching} // optional pull-to-refresh
+						onRefresh={refreshCollections} // optional pull-to-refresh
 						renderItem={({ item }) => {
 							if (item.id === -1) {
 								return (
@@ -107,14 +79,8 @@ export default function Collection() {
 												{item.emoji}
 											</Text>
 										}
-										onPress={async () => {
-											await insertCollection(
-												"test",
-												"test"
-											);
-											setIsNewCollection(true);
-										}}
-										onLongPress={() => refetch()}
+										onPress={handleAddNewCollection}
+										onLongPress={() => refreshCollections()} // wrap it!
 									/>
 								);
 							}
