@@ -14,11 +14,11 @@ import { SearchedPokemonCard } from "@/components/pokemon-card/SeachedPokemonCar
 import { Text } from "@/components/main/Text";
 import { searchListStyles } from "@/constants/ui/GlobalStyles";
 
-import { useSearchViewModel } from "@/viewmodels/searchViewmodel";
+import { searchViewModel } from "@/viewmodels/searchViewmodel";
 
 export default function Search() {
 	const { search, setSearch, data, isFetching, isSearching, error } =
-		useSearchViewModel();
+		searchViewModel();
 
 	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
 
