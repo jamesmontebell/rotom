@@ -17,7 +17,6 @@ export default function Collection() {
 		handleAddNewCollection,
 	} = collectionViewModel();
 
-	// animation stays in the View
 	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
 	useEffect(() => {
 		fadeInTextAnim.setValue(0);
@@ -57,30 +56,23 @@ export default function Collection() {
 						refreshing={isFetching} // optional pull-to-refresh
 						onRefresh={refreshCollections} // optional pull-to-refresh
 						renderItem={({ item }) => {
+							// Watchlist
 							if (item.id === -1) {
 								return (
 									<PokemonCollectionCard
 										title={item.name}
-										icon={
-											<Text style={{ fontSize: 48 }}>
-												{item.emoji}
-											</Text>
-										}
+										icon={item.emoji}
 									/>
 								);
 							}
-
+							// New collection
 							if (item.id === -2) {
 								return (
 									<PokemonCollectionCard
 										title={item.name}
-										icon={
-											<Text style={{ fontSize: 48 }}>
-												{item.emoji}
-											</Text>
-										}
+										icon={item.emoji}
 										onPress={handleAddNewCollection}
-										onLongPress={() => refreshCollections()} // wrap it!
+										onLongPress={() => refreshCollections()}
 									/>
 								);
 							}
@@ -88,7 +80,7 @@ export default function Collection() {
 							return (
 								<PokemonCollectionCard
 									title={item.name}
-									icon={<Text>{item.emoji}</Text>}
+									icon={item.emoji}
 								/>
 							);
 						}}

@@ -1,22 +1,36 @@
 import React from "react";
-import { TouchableOpacity, View, GestureResponderEvent } from "react-native";
+import {
+	TouchableOpacity,
+	View,
+	GestureResponderEvent,
+	StyleProp,
+	ViewStyle,
+} from "react-native";
+
+import Colors from "@/constants/Colors";
 import { Text } from "@/components/main/Text";
 import { pokemonCardStyles } from "@/constants/ui/GlobalStyles";
-import Colors from "@/constants/Colors";
 
 type PokemonCollectionCardProps = {
+	isTouchable?: boolean | null;
 	title: string;
-	icon: React.ReactNode;
+	icon: string;
 	onPress?: (event: GestureResponderEvent) => void;
 	onLongPress?: (event: GestureResponderEvent) => void;
+	style?: StyleProp<ViewStyle>;
 };
 
 const PokemonCollectionCard = ({
+	isTouchable = true,
 	title,
 	icon,
 	onPress,
 	onLongPress,
+	style,
 }: PokemonCollectionCardProps) => {
+	// choose wrapper (TouchableOpacity or View)
+	const Wrapper: any = isTouchable ? TouchableOpacity : View;
+
 	return (
 		<View
 			style={[
@@ -29,14 +43,12 @@ const PokemonCollectionCard = ({
 					backgroundColor: Colors.clrSurfaceA10,
 					borderRadius: 8,
 					padding: 16,
-					borderColor: "white",
-					borderWidth: 1,
 				},
+				style,
 			]}
 		>
-			<TouchableOpacity
-				onPress={onPress}
-				onLongPress={onLongPress}
+			<Wrapper
+				{...(isTouchable && { onPress, onLongPress })}
 				style={{
 					flex: 1,
 					justifyContent: "center",
@@ -50,10 +62,10 @@ const PokemonCollectionCard = ({
 						alignItems: "center",
 					}}
 				>
-					{icon}
+					<Text style={{ fontSize: 48 }}>{icon}</Text>
 				</View>
 				<Text>{title}</Text>
-			</TouchableOpacity>
+			</Wrapper>
 		</View>
 	);
 };

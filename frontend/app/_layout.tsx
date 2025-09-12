@@ -1,10 +1,20 @@
-import { ActivityIndicator, View } from "react-native";
-import { Slot } from "expo-router";
+import {
+	ActivityIndicator,
+	Button,
+	TouchableOpacity,
+	View,
+} from "react-native";
+
+import { Stack } from "expo-router";
+
 import {
 	initialWindowMetrics,
 	SafeAreaProvider,
 } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
+
+import { Text } from "@/components/main/Text";
+import Colors from "@/constants/Colors";
 
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
@@ -27,14 +37,39 @@ export default function RootLayout() {
 				<ActivityIndicator size="large" />
 			</View>
 		);
-}
+	}
+
 	return (
 		<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-			<Slot
-				screenOptions={{
-					headerShown: false,
-				}}
-			/>
+			<Stack screenOptions={{ headerShown: false }}>
+				{/* Tab navigator group */}
+				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+				{/* Modal route */}
+				<Stack.Screen
+					name="collectionModal"
+					options={({ navigation }) => ({
+						presentation: "modal",
+						headerShown: true,
+						title: "New Collection", // custom title
+						headerTitleAlign: "center", // center the title
+						headerStyle: {
+							backgroundColor: Colors.clrSurfaceA0, // background color
+						},
+						headerTitleStyle: {
+							fontSize: 18,
+							fontWeight: "bold",
+						},
+						headerTintColor: Colors.clrLightA0, // tint color for icons and text
+						headerLeft: () => (
+							<Button
+								title="Close"
+								onPress={() => navigation.goBack()}
+							/>
+						),
+					})}
+				/>
+			</Stack>
 		</SafeAreaProvider>
 	);
 }

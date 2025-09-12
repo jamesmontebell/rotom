@@ -7,8 +7,9 @@ export function Button({ children, style, ...props }: PressableProps) {
 			style={({ pressed }) => [
 				{
 					backgroundColor: Colors.clrLightA0,
-					padding: 8,
-					borderRadius: 14,
+					borderRadius: 8,
+					paddingHorizontal: 16,
+					paddingVertical: 10,
 					opacity: pressed ? 0.6 : 1, // 👈 Opacity on press
 					transition: "opacity 150ms",
 				},

@@ -53,7 +53,7 @@ export const textInputStyles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		borderRadius: 8,
-		backgroundColor: Colors.clrLightA0,
+		backgroundColor: Colors.clrSurfaceTonalA50,
 	},
 	input: {
 		flex: 1,

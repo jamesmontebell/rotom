@@ -17,14 +17,17 @@ export const initDb = async () => {
 	// collections table
 	await db.execAsync(`CREATE TABLE IF NOT EXISTS collections (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		name TEXT NOT NULL UNIQUE,
+		name TEXT NOT NULL,
 		emoji TEXT
 	);`);
+
+	// 🔥 clear all rows in collections on every init
+	await db.execAsync(`DELETE FROM collections;`);
 
 	// singleton watchlist table
 	await db.execAsync(`CREATE TABLE IF NOT EXISTS watchlist (
 		id INTEGER PRIMARY KEY CHECK (id = 1),
-		name TEXT NOT NULL UNIQUE,
+		name TEXT NOT NULL,
 		emoji TEXT 
 	);`);
 
@@ -63,6 +66,7 @@ export const insertCollection = async (
 		callback?.();
 	} catch (error) {
 		console.error("SQLite Insert Error:", error);
+		throw error;
 	}
 };
 

@@ -1,13 +1,15 @@
-// src/viewmodels/useCollectionsViewModel.ts
 import { useEffect, useMemo, useState, useCallback } from "react";
+
+import { useFocusEffect, useRouter } from "expo-router";
+
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { getCollections, insertCollection } from "@/services/db";
 import { PokemonCardCollection } from "@/models/pokemonCardCollection";
+import { getCollections, insertCollection } from "@/services/db";
 
 export function collectionViewModel() {
 	const qc = useQueryClient();
-	const [isNewCollection, setIsNewCollection] = useState(false);
+	const router = useRouter();
 
 	const {
 		data: collections = [],
@@ -20,13 +22,6 @@ export function collectionViewModel() {
 		gcTime: Infinity,
 		staleTime: Infinity,
 	});
-
-	useEffect(() => {
-		if (isNewCollection) {
-			refetch();
-			setIsNewCollection(false);
-		}
-	}, [isNewCollection, refetch]);
 
 	const staticCollections: PokemonCardCollection[] = useMemo(
 		() => [
@@ -43,14 +38,19 @@ export function collectionViewModel() {
 
 	const refreshCollections = useCallback(async () => {
 		await qc.invalidateQueries({ queryKey: ["collections"] });
-		// Optionally await a refetch immediately:
 		await refetch();
 	}, [qc, refetch]);
 
-	const handleAddNewCollection = useCallback(async () => {
-		await insertCollection("test", "test");
-		await refreshCollections();
-	}, [refreshCollections]);
+	const handleAddNewCollection = useCallback(() => {
+		router.push("/collectionModal");
+	}, [router]);
+
+	// 🔑 Refresh collections whenever screen is focused
+	useFocusEffect(
+		useCallback(() => {
+			refreshCollections();
+		}, [refreshCollections])
+	);
 
 	return {
 		flatListData,
