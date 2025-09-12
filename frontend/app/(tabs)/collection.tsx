@@ -29,7 +29,7 @@ export default function Collection() {
 
 	return (
 		<Main>
-			<Animated.View style={{ opacity: fadeInTextAnim }}>
+			<Animated.View style={{ opacity: fadeInTextAnim, flex: 1 }}>
 				{error ? (
 					<View
 						style={{

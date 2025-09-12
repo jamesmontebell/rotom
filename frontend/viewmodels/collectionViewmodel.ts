@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 
-import { useFocusEffect, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -44,13 +44,6 @@ export function collectionViewModel() {
 	const handleAddNewCollection = useCallback(() => {
 		router.push("/collectionModal");
 	}, [router]);
-
-	// 🔑 Refresh collections whenever screen is focused
-	useFocusEffect(
-		useCallback(() => {
-			refreshCollections();
-		}, [refreshCollections])
-	);
 
 	return {
 		flatListData,
