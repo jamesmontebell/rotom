@@ -62,9 +62,13 @@ const PokemonCollectionCard = ({
 						alignItems: "center",
 					}}
 				>
-					<Text style={{ fontSize: 48 }}>{icon}</Text>
+					<Text style={{ fontSize: 48 }}>
+						{icon}
+					</Text>
 				</View>
-				<Text>{title}</Text>
+				<Text style={{ textAlign: "center" }}>
+					{title}
+				</Text>
 			</Wrapper>
 		</View>
 	);

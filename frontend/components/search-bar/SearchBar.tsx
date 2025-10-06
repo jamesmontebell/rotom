@@ -1,7 +1,7 @@
 // src/components/search-bar/SearchBar.tsx
-import { TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity, View, Platform } from "react-native";
 import { Text } from "@/components/main/Text";
-import { textInputStyles } from "@/constants/ui/GlobalStyles";
+import { collectionModalStyles } from "@/constants/ui/CollectionModalStyles";
 import Colors from "../../constants/Colors";
 
 type Props = {
@@ -12,20 +12,33 @@ type Props = {
 
 export function SearchBar({ value, onChange, onClear }: Props) {
 	return (
-		<View style={textInputStyles.wrapper}>
+		<View
+			style={[
+				collectionModalStyles.inputWrapper,
+				{ marginBottom: 16 },
+			]}
+		>
 			<TextInput
-				style={textInputStyles.input}
+				style={collectionModalStyles.input}
 				placeholder="Search for cards"
-				placeholderTextColor={Colors.clrDarkA0}
+				placeholderTextColor={Colors.clrSurfaceA50}
 				value={value}
 				onChangeText={onChange}
 			/>
 			{value.length > 0 && (
 				<TouchableOpacity
 					onPress={onClear}
-					style={textInputStyles.clearButton}
+					style={
+						collectionModalStyles.clearButton
+					}
 				>
-					<Text style={textInputStyles.clearButtonText}>×</Text>
+					<Text
+						style={
+							collectionModalStyles.clearButtonText
+						}
+					>
+						×
+					</Text>
 				</TouchableOpacity>
 			)}
 		</View>

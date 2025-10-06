@@ -41,43 +41,76 @@ export default function Search() {
 				onClear={() => setSearch("")}
 			/>
 			{isFetching ? (
-				<Animated.View style={{ opacity: fadeInTextAnim }}>
+				<Animated.View
+					style={{ opacity: fadeInTextAnim }}
+				>
 					<PokemonSkeletonList />
 				</Animated.View>
 			) : !isSearching ? (
-				<Animated.View style={{ opacity: fadeInTextAnim }}>
+				<Animated.View
+					style={{ opacity: fadeInTextAnim }}
+				>
 					<Text>search screen content</Text>
 				</Animated.View>
 			) : error ? (
 				<PokemonSkeletonList />
 			) : (
-				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+				<TouchableWithoutFeedback
+					onPress={() => Keyboard.dismiss()}
+				>
 					<FlatList
-						style={searchListStyles.container}
+						style={
+							searchListStyles.container
+						}
 						numColumns={2}
 						data={data ?? []}
-						columnWrapperStyle={{ justifyContent: "space-between" }}
+						columnWrapperStyle={{
+							justifyContent:
+								"space-between",
+						}}
 						renderItem={({ item }) => (
 							<SearchedPokemonCard
 								isFromSearch
-								image={item.images.large}
-								title={item.name}
+								image={
+									item
+										.images
+										.large
+								}
+								title={
+									item.name
+								}
 								cardSet={[
 									`${item.set.name} ${item.number}/${item.set.total}`,
 								]}
-								rarity={item.rarity}
+								rarity={
+									item.rarity
+								}
 								qty={0}
 								price={Math.max(
-									item?.tcgplayer?.prices?.normal?.market ||
+									item
+										?.tcgplayer
+										?.prices
+										?.normal
+										?.market ||
 										0,
-									item?.tcgplayer?.prices?.reverseHolofoil
-										?.market || 0,
-									item?.tcgplayer?.prices?.holofoil?.market ||
+									item
+										?.tcgplayer
+										?.prices
+										?.reverseHolofoil
+										?.market ||
+										0,
+									item
+										?.tcgplayer
+										?.prices
+										?.holofoil
+										?.market ||
 										0
 								)}
 							/>
 						)}
-						keyExtractor={(item, index) => index.toString()}
+						keyExtractor={(item, index) =>
+							index.toString()
+						}
 					/>
 				</TouchableWithoutFeedback>
 			)}
