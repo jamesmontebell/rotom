@@ -1,48 +1,68 @@
 import express, { json } from "express";
 import dotenv from "dotenv";
-import { PokemonTCG } from "@bosstop/pokemontcgapi";
 
 dotenv.config();
-const key = process.env.EXPO_PUBLIC_POKEMON_API_KEY;
-if (!key) {
-	throw new Error("Missing key");
-}
-const api = new PokemonTCG(key);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const fetchPokemonCardByName = async (name) => {
 	try {
-		const data = await api.cards.searchByName(name);
+		// Use the new Pokemon Price Tracker API to search by name
+		const response = await fetch(
+			`https://www.pokemonpricetracker.com/api/v2/cards?search=${encodeURIComponent(
+				name
+			)}&limit=1`,
+			{
+				headers: {
+					Authorization:
+						"Bearer " +
+						process.env
+							.POKEMON_PRICE_TRACKER_API_KEY,
+				},
+			}
+		);
 
-		const mappedData = data.map((card) => ({
+		if (!response.ok) {
+			const errorText = await response.text();
+			console.error(
+				`API Error: ${response.status} - ${errorText}`
+			);
+			throw new Error(
+				`HTTP error! status: ${response.status} - ${errorText}`
+			);
+		}
+
+		const data = await response.json();
+
+		// Map the new API response to match the expected structure
+		const card = data.data[0]; // Get the first card from the array
+		const mappedData = {
 			id: card.id,
 			name: card.name,
-			supertype: card.supertype,
-			subtypes: card.subtypes,
-			hp: card.hp,
-			types: card.types,
-			evolvesTo: card.evolvesTo,
-			attacks: card.attacks,
-			weaknesses: card.weaknesses,
-			set: card.set,
-			number: card.number,
-			artist: card.artist,
+			set: {
+				id: card.setId,
+				name: card.setName,
+			},
+			number: card.cardNumber,
+			totalSetNumber: card.totalSetNumber,
 			rarity: card.rarity,
-			flavorText: card.flavorText,
-			nationalPokedexNumbers: card.nationalPokedexNumbers,
-			legalities: card.legalities,
-			regulationMark: card.regulationMark,
-			images: card.images,
-			tcgplayer: card.tcgplayer,
-			cardmarket: card.cardmarket,
-		}));
-
-		return mappedData;
+			images: card.imageUrl,
+			tcgplayer: {
+				url: card.tcgPlayerUrl,
+				prices: card.prices,
+			},
+			pricing: {
+				conditions: card.prices.conditions,
+				lastUpdated: card.prices.lastUpdated,
+			},
+			tcgPlayerId: card.tcgPlayerId,
+		};
+		console.log(mappedData);
+		return [mappedData]; // Return as array to match original format
 	} catch (error) {
 		console.error("Error fetching cards:", error);
-		return error;
+		return [];
 	}
 };
 
@@ -53,23 +73,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/cards/search", async (req, res) => {
-	const { name, set } = req.query;
+	const { name } = req.query;
 
 	try {
-		let cards = [];
-
-		if (name) {
-			cards = await fetchPokemonCardByName(name.toString());
-		} else if (set) {
-			cards = await fetchPokemonCardsBySet(set.toString());
-		} else {
+		if (!name) {
 			return res.status(400).json({
-				error: "Missing 'name' or 'set' query param",
+				error: "Missing 'name' query param",
 			});
 		}
 
+		const cards = await fetchPokemonCardByName(name.toString());
 		res.json(cards);
-		console.log(cards[0].id);
+
+		if (cards.length > 0) {
+			console.log(cards[0].id);
+		}
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Failed to fetch cards" });

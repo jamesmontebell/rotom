@@ -1,115 +1,91 @@
-interface Attack {
-	name: string;
-	cost: string[];
-	convertedEnergyCost: number;
-	damage: string;
-	text: string;
-}
-
-interface Weakness {
-	type: string;
-	value: string;
-}
+// Simplified PokemonCard interface with only essential data
 
 interface Set {
 	id: string;
 	name: string;
-	series: string;
-	printedTotal: number;
-	total: number;
-	legalities: {
-		unlimited: string;
-		standard: string;
-		expanded: string;
-	};
-	releaseDate: string;
-	updatedAt: string;
-	images: {
-		symbol: string;
-		logo: string;
-	};
 }
 
-interface Prices {
-	normal: {
-		low: number | null;
-		mid: number;
-		high: number;
-		market: number;
-		directLow: number | null;
+interface ConditionPrices {
+	price: number;
+	listings: number;
+	priceString: string;
+	lastUpdated: string;
+	dataPoints?: number;
+	historyPoints?: number;
+}
+
+interface TcgPlayerPricing {
+	market: number;
+	listings: number;
+	primaryCondition: string;
+	conditions: {
+		[key: string]: ConditionPrices;
 	};
-	reverseHolofoil: {
-		low: number | null;
-		mid: number;
-		high: number;
-		market: number;
-		directLow: number | null;
-	};
-	holofoil: {
-		low: number | null;
-		mid: number;
-		high: number;
-		market: number;
-		directLow: number | null;
-	};
+	lastUpdated: string;
+	priceWasCorrected: boolean;
 }
 
 interface TcgPlayer {
 	url: string;
-	updatedAt: string;
-	prices: Prices | null;
+	prices: TcgPlayerPricing;
 }
 
-interface CardMarketPrices {
-	averageSellPrice: number;
-	lowPrice: number;
-	trendPrice: number;
-	germanProLow: number;
-	suggestedPrice: number;
-	reverseHoloSell: number;
-	reverseHoloLow: number;
-	reverseHoloTrend: number;
-	lowPriceExPlus: number;
-	avg1: number;
-	avg7: number;
-	avg30: number;
-	reverseHoloAvg1: number;
-	reverseHoloAvg7: number;
-	reverseHoloAvg30: number;
-}
-
-interface CardMarket {
-	url: string;
-	updatedAt: string;
-	prices: CardMarketPrices;
-}
-
+// Simplified PokemonCard interface matching the actual API response
 export interface PokemonCard {
 	id: string;
 	name: string;
-	supertype: string;
-	subtypes: string[];
-	hp: string;
-	types: string[];
-	evolvesTo: string[];
-	attacks: Attack[];
-	weaknesses: Weakness[];
 	set: Set;
 	number: string;
-	artist: string;
+	totalSetNumber: string;
 	rarity: string;
-	flavorText: string;
-	nationalPokedexNumbers: number[];
-	legalities: {
-		unlimited: string;
-		standard: string;
-		expanded: string;
-	};
-	regulationMark: string;
-	images: {
-		small: string;
-		large: string;
-	};
+	images: string;
 	tcgplayer: TcgPlayer;
-	cardmarket: CardMarket;
+	pricing: {
+		conditions: {
+			[key: string]: ConditionPrices;
+		};
+		lastUpdated: string;
+	};
+	tcgPlayerId: string;
+}
+
+// API Response structures
+export interface PokemonCardApiResponse {
+	data: PokemonCard;
+	metadata: {
+		total: number;
+		count: number;
+		limit: number;
+		offset: number;
+		hasMore: boolean;
+	};
+}
+
+// For multiple cards response (set searches)
+export interface PokemonCardsApiResponse {
+	data: PokemonCard[];
+	metadata: {
+		total: number;
+		count: number;
+		limit: number;
+		offset: number;
+		hasMore: boolean;
+	};
+}
+
+// Utility types for easier access to specific data
+export type CardPricing = PokemonCard["pricing"];
+
+// Example usage types
+export interface CardSearchResult {
+	cards: PokemonCard[];
+	metadata: PokemonCardApiResponse["metadata"];
+}
+
+export interface CardSearchFilters {
+	name?: string;
+	set?: string;
+	rarity?: string;
+	minPrice?: number;
+	maxPrice?: number;
 }
