@@ -72,38 +72,41 @@ export default function Search() {
 							<SearchedPokemonCard
 								isFromSearch
 								image={
-									item
-										.images
-										.large
+									item.images
 								}
 								title={
 									item.name
 								}
 								cardSet={[
-									`${item.set.name} ${item.number}/${item.set.total}`,
+									`${item.set.name} ${item.number}/${item.totalSetNumber}`,
 								]}
 								rarity={
 									item.rarity
 								}
-								qty={0}
 								price={Math.max(
 									item
 										?.tcgplayer
 										?.prices
-										?.normal
-										?.market ||
+										?.conditions?.[
+										"Near Mint"
+									]
+										?.price ||
 										0,
 									item
 										?.tcgplayer
 										?.prices
-										?.reverseHolofoil
-										?.market ||
+										?.conditions?.[
+										"Lightly Played"
+									]
+										?.price ||
 										0,
 									item
 										?.tcgplayer
 										?.prices
-										?.holofoil
-										?.market ||
+										?.conditions?.[
+										"Moderately Played"
+									]
+										?.price ||
 										0
 								)}
 							/>

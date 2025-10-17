@@ -7,7 +7,6 @@ interface SearchedPokemonCardProps {
 	title: string;
 	cardSet: string[];
 	rarity: string;
-	qty: number;
 	price: number;
 	isFromSearch: boolean;
 }
@@ -18,7 +17,6 @@ export function SearchedPokemonCard({
 	title,
 	cardSet,
 	rarity,
-	qty,
 	price,
 }: SearchedPokemonCardProps) {
 	return (
@@ -39,9 +37,6 @@ export function SearchedPokemonCard({
 				<Text style={pokemonCardStyles.subtitle}>
 					{rarity}
 				</Text>
-				<Text style={pokemonCardStyles.subtitle}>
-					{qty}
-				</Text>
 				<View
 					style={
 						pokemonCardStyles.priceAndAddContainer
@@ -56,7 +51,9 @@ export function SearchedPokemonCard({
 								style={
 									pokemonCardStyles.addButton
 								}
-								src="https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858"
+								source={{
+									uri: "https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858",
+								}}
 							/>
 						</TouchableOpacity>
 					) : null}

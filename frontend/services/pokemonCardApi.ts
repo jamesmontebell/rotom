@@ -22,8 +22,11 @@ export function usePokemonCardApi() {
 			const MIN_DELAY_MS = 1200; // adjust delay here
 			const startTime = Date.now();
 
-			const response = await fetch(`${API_BASE_URL}${endpoint}`);
-			if (!response.ok) throw new Error("Failed to fetch cards");
+			const response = await fetch(
+				`${API_BASE_URL}${endpoint}`
+			);
+			if (!response.ok)
+				throw new Error("Failed to fetch cards");
 
 			const data: PokemonCard[] = await response.json();
 
@@ -38,7 +41,10 @@ export function usePokemonCardApi() {
 		} catch (err: any) {
 			console.error(err);
 			setError(err.message || "Unknown error");
-			Alert.alert("Error", err.message || "Something went wrong");
+			Alert.alert(
+				"Error",
+				err.message || "Something went wrong"
+			);
 			return []; // <-- return empty array on error
 		} finally {
 			setLoading(false);
@@ -47,11 +53,9 @@ export function usePokemonCardApi() {
 
 	const fetchers = {
 		fetchByName: (name: string) =>
-			fetchCards(`/api/cards/search?name=${encodeURIComponent(name)}`),
-
-		fetchBySet: (setId: string) =>
-			fetchCards(`/api/cards/search?set=${encodeURIComponent(setId)}`),
-
+			fetchCards(
+				`/api/cards/search?name=${encodeURIComponent(name)}`
+			),
 		// add more fetchers here
 	};
 
