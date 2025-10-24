@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import { Text } from "@/components/main/Text";
 import { searchListStyles } from "@/constants/ui/GlobalStyles";
-import { SearchedPokemonCard } from "../pokemon-card/SeachedPokemonCard";
+import { PokemonCard } from "../pokemon-card/PokemonCard";
 import { profileShowcaseStyles } from "./ShowcaseCardStyles";
 
 const dummyCards = [
@@ -87,7 +87,7 @@ const ShowcaseCard = () => {
 					justifyContent: "space-between",
 				}}
 				renderItem={({ item }) => (
-					<SearchedPokemonCard
+					<PokemonCard
 						isFromSearch={false}
 						image={item.images.large}
 						title={item.name}

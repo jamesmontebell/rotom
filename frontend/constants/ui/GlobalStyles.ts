@@ -101,35 +101,6 @@ export const pokemonCardStyles = StyleSheet.create({
 		resizeMode: "stretch",
 		borderRadius: 5,
 	},
-	textContainer: {
-		padding: 8,
-		flex: 1, // Take remaining space
-		display: "flex", // Use flex layout for textContainer
-		flexDirection: "column", // Stack content vertically
-		justifyContent: "space-between", // Align items at the top and bottom
-	},
-	title: {
-		color: Colors.clrLightA0,
-		fontFamily: "Baloo-Bold",
-		fontSize: 12,
-	},
-	subtitle: {
-		color: Colors.clrLightA0,
-		fontSize: 9,
-	},
-	priceAndAddContainer: {
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "space-between",
-	},
-	addButton: {
-		width: 24,
-		height: 24,
-	},
-	price: {
-		fontFamily: "Baloo-Bold",
-		fontSize: 16,
-	},
 });
 
 export const loadingStyles = StyleSheet.create({

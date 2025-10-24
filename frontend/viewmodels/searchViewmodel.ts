@@ -1,5 +1,7 @@
-// src/viewmodels/useSearchViewModel.ts
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { useRouter } from "expo-router";
+
 import debounce from "lodash/debounce";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,6 +12,7 @@ export function searchViewModel() {
 	const { search, setSearch } = useSearchBarStore();
 	const [isSearching, setIsSearching] = useState(false);
 	const { fetchers } = usePokemonCardApi();
+	const router = useRouter();
 
 	const { data, isFetching, refetch, error } = useQuery({
 		queryKey: ["pokemonCard", search],
@@ -38,12 +41,34 @@ export function searchViewModel() {
 		return () => debouncedSearch.cancel();
 	}, [search, debouncedSearch]);
 
+	const handleSearchedPokemonCardClick = useCallback(
+		(card: any) => {
+			router.push({
+				pathname: "/searchedPokemonCardModal",
+				params: {
+					cardName: card.name,
+					cardImage: card.images,
+					cardSet: card.set.name,
+					cardNumber: card.number,
+					cardRarity: card.rarity,
+					cardId: card.id,
+					// Stringify complex objects
+					cardPricing: JSON.stringify(
+						card.tcgplayer?.prices || {}
+					),
+				},
+			});
+		},
+		[router]
+	);
+
 	return {
 		search,
 		setSearch,
 		data: data ? Array(10).fill(data).flat() : data,
 		isFetching,
 		isSearching,
+		handleSearchedPokemonCardClick,
 		error,
 	};
 }

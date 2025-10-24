@@ -80,6 +80,41 @@ export default function RootLayout() {
 							),
 						})}
 					/>
+					<Stack.Screen
+						name="searchedPokemonCardModal"
+						options={({
+							navigation,
+							route,
+						}) => ({
+							presentation: "modal",
+							headerShown: true,
+							title:
+								(
+									route.params as any
+								)?.cardName ||
+								"Card Details", // dynamic title from params
+							headerTitleAlign:
+								"center", // center the title
+							headerStyle: {
+								backgroundColor:
+									Colors.clrSurfaceA0, // background color
+							},
+							headerTitleStyle: {
+								fontSize: 18,
+								fontWeight: "bold",
+							},
+							headerTintColor:
+								Colors.clrLightA0, // tint color for icons and text
+							headerLeft: () => (
+								<Button
+									title="Close"
+									onPress={() =>
+										navigation.goBack()
+									}
+								/>
+							),
+						})}
+					/>
 				</Stack>
 			</SafeAreaProvider>
 		</QueryClientProvider>

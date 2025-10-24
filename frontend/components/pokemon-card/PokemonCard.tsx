@@ -1,11 +1,20 @@
 import { useEffect, useRef } from "react";
-import { View, Image, TouchableOpacity, Animated } from "react-native";
+
+import {
+	View,
+	Image,
+	TouchableOpacity,
+	Animated,
+	GestureResponderEvent,
+} from "react-native";
+
 import { Text } from "@/components/main/Text";
 import { pokemonCardStyles } from "@/constants/ui/GlobalStyles";
 
-interface SearchedPokemonCardProps {
+interface PokemonCardProps {
 	image: string;
 	title: string;
+	onPress?: (event: GestureResponderEvent) => void;
 	cardSet: string[];
 	rarity: string;
 	price: number;
@@ -13,15 +22,16 @@ interface SearchedPokemonCardProps {
 	index?: number; // Optional index for staggered animation
 }
 
-export function SearchedPokemonCard({
+export function PokemonCard({
 	isFromSearch,
 	image,
+	onPress,
 	title,
 	cardSet,
 	rarity,
 	price,
 	index = 0, // Default to 0 if no index provided
-}: SearchedPokemonCardProps) {
+}: PokemonCardProps) {
 	const fadeAnim = useRef(new Animated.Value(0)).current;
 
 	useEffect(() => {
@@ -32,6 +42,32 @@ export function SearchedPokemonCard({
 			useNativeDriver: true,
 		}).start();
 	}, [fadeAnim, index]);
+
+	if (isFromSearch) {
+		return (
+			<Animated.View
+				style={[
+					pokemonCardStyles.container,
+					{ opacity: fadeAnim },
+				]}
+			>
+				<TouchableOpacity onPress={onPress}>
+					<View
+						style={
+							pokemonCardStyles.imageConatiner
+						}
+					>
+						<Image
+							src={image}
+							style={
+								pokemonCardStyles.image
+							}
+						/>
+					</View>
+				</TouchableOpacity>
+			</Animated.View>
+		);
+	}
 
 	return (
 		<Animated.View
@@ -46,38 +82,6 @@ export function SearchedPokemonCard({
 					style={pokemonCardStyles.image}
 				/>
 			</View>
-			{/* <View style={pokemonCardStyles.textContainer}>
-				<Text style={pokemonCardStyles.title}>
-					{title}
-				</Text>
-				<Text style={pokemonCardStyles.subtitle}>
-					{cardSet}
-				</Text>
-				<Text style={pokemonCardStyles.subtitle}>
-					{rarity}
-				</Text>
-				<View
-					style={
-						pokemonCardStyles.priceAndAddContainer
-					}
-				>
-					<Text style={pokemonCardStyles.price}>
-						{`$${price}`}
-					</Text>
-					{isFromSearch ? (
-						<TouchableOpacity>
-							<Image
-								style={
-									pokemonCardStyles.addButton
-								}
-								source={{
-									uri: "https://img.icons8.com/?size=100&id=V54UD3Kg4Dt5&format=png&color=cf3858",
-								}}
-							/>
-						</TouchableOpacity>
-					) : null}
-				</View>
-			</View> */}
 		</Animated.View>
 	);
 }

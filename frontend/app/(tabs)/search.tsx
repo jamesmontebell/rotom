@@ -10,15 +10,22 @@ import {
 import Main from "@/components/main/Main";
 import PokemonSkeletonList from "@/components/search/PokemonSkeletonList";
 import { SearchBar } from "@/components/search-bar/SearchBar";
-import { SearchedPokemonCard } from "@/components/pokemon-card/SeachedPokemonCard";
+import { PokemonCard } from "@/components/pokemon-card/PokemonCard";
 import { Text } from "@/components/main/Text";
 import { searchListStyles } from "@/constants/ui/GlobalStyles";
 
 import { searchViewModel } from "@/viewmodels/searchViewmodel";
 
 export default function Search() {
-	const { search, setSearch, data, isFetching, isSearching, error } =
-		searchViewModel();
+	const {
+		search,
+		setSearch,
+		data,
+		isFetching,
+		isSearching,
+		handleSearchedPokemonCardClick,
+		error,
+	} = searchViewModel();
 
 	const fadeInTextAnim = useRef(new Animated.Value(0)).current;
 
@@ -73,8 +80,13 @@ export default function Search() {
 							item,
 							index,
 						}) => (
-							<SearchedPokemonCard
+							<PokemonCard
 								isFromSearch
+								onPress={() =>
+									handleSearchedPokemonCardClick(
+										item
+									)
+								}
 								image={
 									item.images
 								}
