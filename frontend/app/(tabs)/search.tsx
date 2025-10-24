@@ -65,10 +65,14 @@ export default function Search() {
 						numColumns={2}
 						data={data ?? []}
 						columnWrapperStyle={{
+							gap: 6,
 							justifyContent:
-								"space-between",
+								"center",
 						}}
-						renderItem={({ item }) => (
+						renderItem={({
+							item,
+							index,
+						}) => (
 							<SearchedPokemonCard
 								isFromSearch
 								image={
@@ -90,25 +94,53 @@ export default function Search() {
 										?.conditions?.[
 										"Near Mint"
 									]
-										?.price ||
-										0,
+										?.listings >
+										0
+										? item
+												?.tcgplayer
+												?.prices
+												?.conditions?.[
+												"Near Mint"
+											]
+												?.price ||
+												0
+										: 0,
 									item
 										?.tcgplayer
 										?.prices
 										?.conditions?.[
 										"Lightly Played"
 									]
-										?.price ||
-										0,
+										?.listings >
+										0
+										? item
+												?.tcgplayer
+												?.prices
+												?.conditions?.[
+												"Lightly Played"
+											]
+												?.price ||
+												0
+										: 0,
 									item
 										?.tcgplayer
 										?.prices
 										?.conditions?.[
 										"Moderately Played"
 									]
-										?.price ||
+										?.listings >
 										0
+										? item
+												?.tcgplayer
+												?.prices
+												?.conditions?.[
+												"Moderately Played"
+											]
+												?.price ||
+												0
+										: 0
 								)}
+								index={index}
 							/>
 						)}
 						keyExtractor={(item, index) =>

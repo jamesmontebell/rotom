@@ -16,7 +16,8 @@ export function searchViewModel() {
 		queryFn: () => fetchers.fetchByName(search),
 		enabled: false,
 		retry: 3,
-		retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000),
+		retryDelay: (attemptIndex) =>
+			Math.min(1000 * 2 ** attemptIndex, 3000),
 	});
 
 	const debouncedSearch = useMemo(
@@ -40,10 +41,9 @@ export function searchViewModel() {
 	return {
 		search,
 		setSearch,
-		data,
+		data: data ? Array(10).fill(data).flat() : data,
 		isFetching,
 		isSearching,
 		error,
 	};
 }
-

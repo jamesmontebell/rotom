@@ -13,7 +13,7 @@ const PokemonSkeletonList = () => {
 			numColumns={2}
 			data={Array.from({ length: 6 })}
 			columnWrapperStyle={{
-				justifyContent: "space-between",
+				gap: 6,
 			}}
 			renderItem={({ item, index }) => (
 				<SkeletonSearchedPokemonCard key={index} />

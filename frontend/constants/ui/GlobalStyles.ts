@@ -82,7 +82,7 @@ export const searchListStyles = StyleSheet.create({
 export const pokemonCardStyles = StyleSheet.create({
 	container: {
 		width: "48%",
-		marginVertical: 8,
+		marginVertical: 3,
 		backgroundColor: Colors.clrSurfaceA10,
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,

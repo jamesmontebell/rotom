@@ -59,6 +59,7 @@ const fetchPokemonCardByName = async (name) => {
 			tcgPlayerId: card.tcgPlayerId,
 		};
 		console.log(mappedData);
+		console.log(mappedData.tcgplayer.prices.conditions);
 		return [mappedData]; // Return as array to match original format
 	} catch (error) {
 		console.error("Error fetching cards:", error);
